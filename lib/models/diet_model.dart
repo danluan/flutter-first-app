@@ -13,6 +13,15 @@ class DietModel {
     required this.duration,
     required this.calories,
     required this.viewIsSelected,
-  })
+  });
 
+  static List<DietModel> getDiets() {
+    List<DietModel> diets = [];
+
+    diets.add(DietModel(name: "Teste", iconPath: "/assets/icons/blueberry-pancake.svg", level: "Easy", duration: "30min", calories: "210", viewIsSelected: false));
+    diets.add(DietModel(name: "Teste", iconPath: "/assets/icons/blueberry-pancake.svg", level: "Easy", duration: "30min", calories: "210", viewIsSelected: false));
+    diets.add(DietModel(name: "Teste", iconPath: "/assets/icons/blueberry-pancake.svg", level: "Easy", duration: "30min", calories: "210", viewIsSelected: false));
+
+    return diets;
+  }
 }

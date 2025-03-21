@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_first_app/models/category_model.dart';
+import 'package:flutter_first_app/models/diet_model.dart';
 import 'package:flutter_svg/svg.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
   List<CategoryModel> categories = [];
+  List<DietModel> diets = [];
 
   void _getCategories() {
+    //Mocking data
     categories = CategoryModel.getCategories();
+    diets = DietModel.getDiets();
   }
 
   @override
@@ -23,6 +27,7 @@ class HomePage extends StatelessWidget {
         _categoriesSection(),
         const SizedBox(height: 40),
         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 20),
@@ -32,10 +37,46 @@ class HomePage extends StatelessWidget {
                       fontSize: 18,
                       fontWeight: FontWeight.w600)),
             ),
+            const SizedBox(height: 15),
             Container(
-              height: 150,
-              child: ListView.separated(itemBuilder: itemBuilder, separatorBuilder: separatorBuilder, itemCount: itemCount),
-            )
+                height: 300,
+                child: ListView.separated(
+                  itemCount: diets.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return Container(
+                        width: 220,
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(16)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                  color: Colors.white, shape: BoxShape.circle),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SvgPicture.asset(
+                                    categories[index].iconPath),
+                              ),
+                            ),
+                            Text(
+                              categories[index].name,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black,
+                                  fontSize: 14),
+                            )
+                          ],
+                        ));
+                  },
+                  separatorBuilder: (context, index) => const SizedBox(
+                    width: 30,
+                  ),
+                ))
           ],
         )
       ]),
